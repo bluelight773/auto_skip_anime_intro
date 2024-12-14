@@ -1,9 +1,9 @@
 # auto_skip_anime_intro
 Lua script for auto-skipping anime OP and ED based on chapter lengths. Focused on working in mpv when used as an external player for Stremio on Android.
 
-Auto-skips OP and ED in anime by skipping any chapters that are 88-92 seconds long. This requires that the chapters be labelled in the video.
-For anime, based on a small sample, the primary Stremio link (eg, NyaaSi Multi Subs 1080p) had chapters labelled about half the time, so this
-approach may work about half the time.
+Auto-skips OP and ED in anime by skipping any chapters that are 88-92 seconds long or that are named "OP", "Opening", "ED", or "Credits".
+This requires that the chapters be labelled in the video. For anime, based on a small sample, the primary Stremio link (eg, NyaaSi Multi Subs 1080p)
+had chapters labelled about half the time, so this approach may work about half the time.
 
 # Steps to Auto-Skip OP and ED in Stremio on Android
 ## Install and configure mpv with auto-skip script
