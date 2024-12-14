@@ -4,6 +4,26 @@ local mp = require('mp')
 -- Store the chapter ranges that need to be skipped
 local skip_ranges = {}
 
+-- Names that indicate a chapter should be skipped
+local skip_names = {
+    "op",
+    "opening",
+    "ed",
+    "credits"
+}
+
+-- Function to check if a chapter name matches skip criteria
+local function is_skip_name(name)
+    if not name then return false end
+    name = name:lower()
+    for _, skip_name in ipairs(skip_names) do
+        if name == skip_name then
+            return true
+        end
+    end
+    return false
+end
+
 -- Function to initialize skip ranges
 local function initialize_skip_ranges()
     -- Get total number of chapters
@@ -21,10 +41,11 @@ local function initialize_skip_ranges()
     -- Clear existing ranges
     skip_ranges = {}
 
-    -- Find all chapters that are 88-92 seconds long
+    -- Find chapters to skip based on duration or name
     for i = 0, chapter_count - 1 do
         local chapter_start = mp.get_property_number(string.format("chapter-list/%d/time", i))
         local chapter_end
+        local chapter_title = mp.get_property(string.format("chapter-list/%d/title", i))
         
         -- Handle last chapter specially
         if i == chapter_count - 1 then
@@ -37,14 +58,14 @@ local function initialize_skip_ranges()
         local chapter_duration = chapter_end - chapter_start
         
         -- Debug output
-        mp.msg.info(string.format("Chapter %d: Start=%f, End=%f, Duration=%f", 
-                                 i, chapter_start, chapter_end, chapter_duration))
+        mp.msg.info(string.format("Chapter %d: Title='%s', Start=%f, End=%f, Duration=%f", 
+                                 i, chapter_title or "nil", chapter_start, chapter_end, chapter_duration))
 
-        -- If chapter is 88-92 seconds, add it to skip ranges
-        if chapter_duration >= 88 and chapter_duration <= 92 then
+        -- If chapter matches duration criteria or name criteria, add it to skip ranges
+        if (chapter_duration >= 88 and chapter_duration <= 92) or is_skip_name(chapter_title) then
             table.insert(skip_ranges, {start = chapter_start, end_ = chapter_end})
-            mp.msg.info(string.format("Added skip range: %f to %f (duration: %f)", 
-                                     chapter_start, chapter_end, chapter_duration))
+            mp.msg.info(string.format("Added skip range: %f to %f (duration: %f, title: %s)", 
+                                     chapter_start, chapter_end, chapter_duration, chapter_title or "nil"))
         end
     end
 end
