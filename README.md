@@ -5,6 +5,8 @@ Auto-skips OP and ED in anime by skipping any chapters that are 88-92 seconds lo
 This requires that the chapters be labelled in the video. For anime, based on a small sample, the primary Stremio link (eg, NyaaSi Multi Subs 1080p)
 had chapters labelled about half the time, so this approach may work about half the time.
 
+We later added additional strings (e.g., "logo", "commercial", "previously"), which may help with skipping chapters in non-anime content. 
+
 # Steps to Auto-Skip OP and ED in Stremio on Android
 ## Install and configure mpv with auto-skip script
 1. Install mpv from [Play Store](https://play.google.com/store/apps/details?id=is.xyz.mpv)
