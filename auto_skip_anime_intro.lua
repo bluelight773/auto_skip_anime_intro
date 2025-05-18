@@ -9,7 +9,10 @@ local skip_names = {
     "op",
     "opening",
     "ed",
-    "credits"
+    "credits",
+    "logo",
+    "commercial",
+    "previously"
 }
 
 -- Function to check if a chapter name matches skip criteria
